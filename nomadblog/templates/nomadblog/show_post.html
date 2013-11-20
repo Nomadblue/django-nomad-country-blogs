@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="entry">
+  <h1>{{ object.title }}</h1>
+  <p><em>Published on {{ object.pub_date|date }}</em></p>
+  <p>Author: <strong>{{ object.bloguser.user }}</strong></p>
+  <p>Status: {{ object.get_status_display }}</p>
+  <p>{{ object.content }}</p>
+</div>
+<div class="post-meta">
+  <p>Categorized under 
+    <a href="{% url 'list_posts_by_category' object.bloguser.blog.country_code object.bloguser.blog.slug object.category.slug %}" class="link-categories">{{ object.category.name }}</a>
+  </p>
+</div>
+
+{% endblock %}
