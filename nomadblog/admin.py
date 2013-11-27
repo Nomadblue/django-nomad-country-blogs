@@ -1,6 +1,11 @@
 from django.contrib import admin
 
-from nomadblog.models import Blog, Category, BlogUser
+from nomadblog.models import BlogHub, Blog, Category, BlogUser
+
+
+class BlogHubAdmin(admin.ModelAdmin):
+    list_display = ('name', )
+    search_fields = ('name', )
 
 
 class BlogAdmin(admin.ModelAdmin):
@@ -19,6 +24,7 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('name', 'slug')
 
 
+admin.site.register(BlogHub, BlogHubAdmin)
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(BlogUser, BlogUserAdmin)
