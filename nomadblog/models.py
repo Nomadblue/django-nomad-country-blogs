@@ -22,6 +22,8 @@ class Blog(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, through='BlogUser')
     hubs = models.ManyToManyField(BlogHub)
+    seo_title = models.CharField(max_length=70, blank=True)
+    seo_desc = models.CharField(max_length=160, blank=True)
 
     class Meta:
         unique_together = ('country_code', 'slug')
@@ -73,6 +75,8 @@ class Post(models.Model):
     slug = models.SlugField(max_length=50, unique=True)
     category = models.ForeignKey(Category, blank=True, null=True)
     content = models.TextField()
+    seo_title = models.CharField(max_length=70, blank=True)
+    seo_desc = models.CharField(max_length=160, blank=True)
 
     def get_absolute_url(self):
         return reverse('show_post', kwargs={'country_code': self.bloguser.blog.country_code, 'blog_slug': self.bloguser.blog.slug, 'slug': self.slug})
