@@ -63,11 +63,12 @@ class BlogUser(models.Model):
     def validate_unique(self, *args, **kwargs):
         super(BlogUser, self).validate_unique(*args, **kwargs)
         try:
-            self.__class__._default_manager.get(blog__country_code=self.blog.country_code, blog__slug=self.blog.slug, slug=self.slug)
+            obj = self.__class__._default_manager.get(blog__country_code=self.blog.country_code, blog__slug=self.blog.slug, slug=self.slug)
         except ObjectDoesNotExist:
             return
         else:
-            raise ValidationError({NON_FIELD_ERRORS: ('BlogUser with slug "%s" already exists for blog "%s"' % (self.slug, self.blog), )})
+            if not obj.id == self.id:
+                raise ValidationError({NON_FIELD_ERRORS: ('BlogUser with slug "%s" already exists for blog "%s"' % (self.slug, self.blog), )})
 
 
 class Category(models.Model):
@@ -120,8 +121,9 @@ class Post(models.Model):
     def validate_unique(self, *args, **kwargs):
         super(Post, self).validate_unique(*args, **kwargs)
         try:
-            self.__class__._default_manager.get(bloguser__blog__country_code=self.bloguser.blog.country_code, bloguser__blog__slug=self.bloguser.blog.slug, slug=self.slug)
+            obj = self.__class__._default_manager.get(bloguser__blog__country_code=self.bloguser.blog.country_code, bloguser__blog__slug=self.bloguser.blog.slug, slug=self.slug)
         except ObjectDoesNotExist:
             return
         else:
-            raise ValidationError({NON_FIELD_ERRORS: ('Post with slug "%s" already exists for blog "%s"' % (self.slug, self.bloguser.blog), )})
+            if not obj.id == self.id:
+                raise ValidationError({NON_FIELD_ERRORS: ('Post with slug "%s" already exists for blog "%s"' % (self.slug, self.bloguser.blog), )})
