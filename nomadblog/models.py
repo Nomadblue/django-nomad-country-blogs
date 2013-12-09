@@ -26,7 +26,7 @@ class Blog(models.Model):
     title = models.CharField(_('title'), max_length=100)
     slug = models.SlugField(_('slug'), max_length=50)
     description = models.TextField(_('description'))
-    country_code = models.CharField(_('iso country code'), max_length=2)
+    country_code = models.CharField(_('iso country code'), max_length=2, help_text='Reference: http://www.iso.org/iso/home/standards/country_codes/country_names_and_code_elements_txt.htm')
     creation_date = models.DateTimeField(_('creation date'), auto_now_add=True)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, through='BlogUser', verbose_name=_('users'))
     hubs = models.ManyToManyField(BlogHub, verbose_name=_('hubs'))
@@ -72,6 +72,7 @@ class BlogUser(models.Model):
 
 
 class Category(models.Model):
+    blog = models.ForeignKey(Blog, verbose_name=_('blog'))
     name = models.CharField(_('name'), max_length=100)
     slug = models.SlugField(_('slug'), max_length=50, unique=True)
     description = models.CharField(_('description'), max_length=500)
