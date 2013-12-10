@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v2.1.2
+======
+
+* Add missing locale files to package
+
 v2.1.1
 ======
 
