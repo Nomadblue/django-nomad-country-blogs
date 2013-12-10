@@ -74,7 +74,7 @@ class BlogUser(models.Model):
 class Category(models.Model):
     blog = models.ForeignKey(Blog, verbose_name=_('blog'))
     name = models.CharField(_('name'), max_length=100)
-    slug = models.SlugField(_('slug'), max_length=50, unique=True)
+    slug = models.SlugField(_('slug'), max_length=50)
     description = models.CharField(_('description'), max_length=500)
     seo_title = models.CharField(_('seo title'), max_length=70, blank=True)
     seo_desc = models.CharField(_('seo meta description'), max_length=160, blank=True)
@@ -85,6 +85,16 @@ class Category(models.Model):
     class Meta:
         verbose_name = _('category')
         verbose_name_plural = _('categories')
+
+    def validate_unique(self, *args, **kwargs):
+        super(Category, self).validate_unique(*args, **kwargs)
+        try:
+            obj = self.__class__._default_manager.get(blog__country_code=self.blog.country_code, blog__slug=self.blog.slug, slug=self.slug)
+        except ObjectDoesNotExist:
+            return
+        else:
+            if not obj.id == self.id:
+                raise ValidationError({NON_FIELD_ERRORS: ('Category with slug "%s" already exists for blog "%s"' % (self.slug, self.blog), )})
 
 
 class Post(models.Model):
