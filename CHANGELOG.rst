@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v2.1.4
+======
+
+* Remove unique constraint in Category.slug
+
 v2.1.3
 ======
 
