@@ -3,4 +3,3 @@ include MANIFEST.in
 include README.rst
 include CHANGELOG.rst
 recursive-include nomadblog/templates *
-recursive-include nomadblog/locale *

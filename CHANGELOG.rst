@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v2.1.3
+======
+
+* Remove locale files from package
+
 v2.1.2
 ======
 
