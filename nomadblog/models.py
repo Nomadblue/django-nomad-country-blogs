@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.core.validators import ValidationError
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.core.exceptions import ObjectDoesNotExist
