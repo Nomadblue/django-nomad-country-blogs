@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v2.1.1
+======
+
+* Use lazy translations on models
+
 v2.1.0
 ======
 
