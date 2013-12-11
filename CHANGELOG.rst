@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v3.0.0
+======
+
+* Categories are now unique and shared accross blog posts
+
 v2.1.4
 ======
 
