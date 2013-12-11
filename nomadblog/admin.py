@@ -1,6 +1,11 @@
 from django.contrib import admin
 
-from nomadblog.models import BlogHub, Blog, Category, BlogUser
+from nomadblog.models import BlogHub, Blog, Category, BlogUser, Country
+
+
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ('code', 'name')
+    search_fields = ('code', 'name')
 
 
 class BlogHubAdmin(admin.ModelAdmin):
@@ -9,21 +14,23 @@ class BlogHubAdmin(admin.ModelAdmin):
 
 
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ('title', 'country_code', 'slug', 'description')
+    list_display = ('title', 'slug', 'description')
     search_fields = ('title', 'slug', 'description')
-    list_filter = ('country_code', )
+    prepopulated_fields = {'slug': ('title',)}
 
 
 class BlogUserAdmin(admin.ModelAdmin):
     list_display = ('user', 'blog', 'bio')
-    search_fields = ('user__username', 'user__email', 'blog__title', 'blog__country_code', 'bio')
+    search_fields = ('user__username', 'user__email', 'blog__title', 'bio')
 
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
     search_fields = ('name', 'slug')
+    prepopulated_fields = {'slug': ('name',)}
 
 
+admin.site.register(Country, CountryAdmin)
 admin.site.register(BlogHub, BlogHubAdmin)
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Category, CategoryAdmin)

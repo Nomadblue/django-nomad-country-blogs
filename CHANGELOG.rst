@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v4.0.0
+======
+
+* Refactor model schema to allow easier relationships and structure.
+
 v3.0.0
 ======
 
