@@ -14,11 +14,13 @@ class NomadBlogMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
         self.blog = get_object_or_404(Blog, countries__code__iexact=self.kwargs.get('country_code'), slug=self.kwargs.get('blog_slug'))
+        self.country_code = self.kwargs.get('country_code')
         return super(NomadBlogMixin, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, *args, **kwargs):
         context = super(NomadBlogMixin, self).get_context_data(*args, **kwargs)
         context['blog'] = self.blog
+        context['country_code'] = self.country_code
         return context
 
 
