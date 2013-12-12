@@ -6,7 +6,7 @@
 <ul id="categories-list">
   {% for cat in object_list %}
     <li>
-      <a href="{% url 'list_posts_by_category' blog.country_code blog.slug cat.slug %}" class="link-categories">{{ cat.name }}</a>
+      <a href="{% url 'post_list_by_category' country_code blog.slug cat.slug %}" class="link-categories">{{ cat.name }}</a>
     </li>
   {% empty %}
     <li>Sorry, no categories found.</li>

@@ -12,10 +12,9 @@ POST_MODEL = get_post_model()
 
 class NomadBlogMixin(object):
 
-    def get_queryset(self):
-        qs = super(NomadBlogMixin, self).get_queryset()
+    def dispatch(self, request, *args, **kwargs):
         self.blog = get_object_or_404(Blog, countries__code__iexact=self.kwargs.get('country_code'), slug=self.kwargs.get('blog_slug'))
-        return qs.filter(bloguser__blog=self.blog)
+        return super(NomadBlogMixin, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, *args, **kwargs):
         context = super(NomadBlogMixin, self).get_context_data(*args, **kwargs)
@@ -25,17 +24,29 @@ class NomadBlogMixin(object):
 
 class PostList(NomadBlogMixin, ListView):
     model = POST_MODEL
-    template_name = 'nomadblog/list_posts.html'
+    template_name = 'nomadblog/post_list.html'
+
+    def get_queryset(self):
+        qs = super(PostList, self).get_queryset()
+        return qs.filter(bloguser__blog=self.blog)
 
 
 class PostDetail(NomadBlogMixin, DetailView):
     model = POST_MODEL
-    template_name = 'nomadblog/show_post.html'
+    template_name = 'nomadblog/post_detail.html'
+
+    def get_object(self, queryset=None):
+        queryset = self.get_queryset().filter(bloguser__blog=self.blog)
+        return super(PostDetail, self).get_object(queryset)
+
+
+class CategoriesList(NomadBlogMixin, ListView):
+    model = Category
 
 
 class PostsByCategoryList(NomadBlogMixin, ListView):
     model = POST_MODEL
-    template_name = 'nomadblog/list_posts_by_category.html'
+    template_name = 'nomadblog/post_list_by_category.html'
 
     def get_queryset(self, *args, **kwargs):
         qs = super(PostsByCategoryList, self).get_queryset()
@@ -45,18 +56,4 @@ class PostsByCategoryList(NomadBlogMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(PostsByCategoryList, self).get_context_data(*args, **kwargs)
         context['category'] = self.category
-        return context
-
-
-class CategoriesList(ListView):
-    model = Category
-    template_name = 'nomadblog/list_categories.html'
-
-    def get_queryset(self):
-        self.blog = get_object_or_404(Blog, countries__code__iexact=self.kwargs.get('country_code'), slug=self.kwargs.get('blog_slug'))
-        return super(CategoriesList, self).get_queryset()
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(CategoriesList, self).get_context_data(*args, **kwargs)
-        context['blog'] = self.blog
         return context

@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v4.1.0
+======
+
+* Rename urlpatterns and templates
+
 v4.0.0
 ======
 

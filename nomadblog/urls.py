@@ -4,8 +4,8 @@ from nomadblog.views import PostList, PostDetail, PostsByCategoryList, Categorie
 
 urlpatterns = patterns(
     '',
-    url(r'^$', PostList.as_view(), name='list_posts'),
-    url(r'^categories/$', CategoriesList.as_view(), name='list_categories'),
-    url(r'^categories/(?P<category_slug>[-\w]+)/$', PostsByCategoryList.as_view(), name='list_posts_by_category'),
-    url('^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='show_post'),
+    url(r'^$', PostList.as_view(), name='post_list'),
+    url(r'^categories/$', CategoriesList.as_view(), name='category_list'),
+    url(r'^categories/(?P<category_slug>[-\w]+)/$', PostsByCategoryList.as_view(), name='post_list_by_category'),
+    url('^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='post_detail'),
 )
