@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v4.1.1
+======
+
+* Add country_code in template context
+
 v4.1.0
 ======
 
