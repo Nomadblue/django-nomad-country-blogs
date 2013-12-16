@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v4.2.0
+======
+
+* Feature posts in country blogs
+
 v4.1.1
 ======
 
