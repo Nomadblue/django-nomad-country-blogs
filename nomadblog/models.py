@@ -99,8 +99,6 @@ class Post(models.Model):
     status = models.IntegerField(_('status'), choices=POST_STATUS_CHOICES, default=0)
     categories = models.ManyToManyField(Category, verbose_name=_('categories'), blank=True)
     content = models.TextField(_('content'))
-    seo_title = models.CharField(_('seo title'), max_length=70, blank=True)
-    seo_desc = models.CharField(_('seo meta description'), max_length=160, blank=True)
     featured_countries = models.ManyToManyField(Country, verbose_name=_('featured countries'), blank=True)
 
     def __unicode__(self):
