@@ -51,9 +51,11 @@ class Blog(models.Model):
 
 class BlogUser(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('user'))
+    name = models.CharField(_('name'), max_length=255, blank=True)
     slug = models.SlugField(_('slug'), max_length=50)
     blog = models.ForeignKey(Blog, verbose_name=_('blog'))
     bio = models.CharField(_('bio'), max_length=255, blank=True)
+    image = models.ImageField(_('image'), blank=True, null=True, upload_to="images/bloguser_avatars/%Y/%m/%d", max_length=255)
     seo_title = models.CharField(_('seo title'), max_length=70, blank=True)
     seo_desc = models.CharField(_('seo meta description'), max_length=160, blank=True)
 

@@ -2,7 +2,12 @@
 CHANGELOG
 =========
 
-v1.1.0
+v1.2.0
+======
+
+* Added optional name and image to a blog user.
+
+v1.1.1
 ======
 
 * Removed seo fields from Post model, as not mandatory for all projects.
