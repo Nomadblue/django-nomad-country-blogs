@@ -20,8 +20,8 @@ class BlogAdmin(admin.ModelAdmin):
 
 
 class BlogUserAdmin(admin.ModelAdmin):
-    list_display = ('user', 'blog', 'bio')
-    search_fields = ('user__username', 'user__email', 'blog__title', 'bio')
+    list_display = ('user', 'blog', 'name', 'bio')
+    search_fields = ('user__username', 'user__email', 'blog__title', 'name', 'bio')
 
 
 class CategoryAdmin(admin.ModelAdmin):
