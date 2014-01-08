@@ -109,3 +109,17 @@ class Post(models.Model):
     class Meta:
         abstract = True
         unique_together = ('bloguser', 'slug')
+
+    def validate_unique(self, *args, **kwargs):
+        """post slug and blog slug must be unique in posts"""
+        super(Post, self).validate_unique(*args, **kwargs)
+        error_exc = ValidationError({NON_FIELD_ERRORS: ('Post with slug "%s" already exists for blog "%s"' % (self.slug, self.bloguser.blog), )})
+        try:
+            obj = self.__class__._default_manager.get(bloguser__blog__slug=self.bloguser.blog.slug, slug=self.slug)
+        except ObjectDoesNotExist:
+            return
+        except self.__class__.MultipleObjectsReturned:
+            raise error_exc
+        else:
+            if not obj.id == self.id:
+                raise error_exc
