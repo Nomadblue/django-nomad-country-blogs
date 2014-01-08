@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v1.2.1
+======
+
+* Post and blog slugs unique together for post
+
 v1.2.0
 ======
 
