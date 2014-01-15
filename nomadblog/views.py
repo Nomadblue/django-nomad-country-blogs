@@ -27,6 +27,7 @@ class NomadBlogMixin(object):
 
 class PostList(NomadBlogMixin, ListView):
     model = POST_MODEL
+    template_name = 'nomadblog/post_list.html'
     paginate_by = getattr(settings, 'POST_PAGINATE_BY', 25)
 
     def get_queryset(self):
@@ -36,6 +37,7 @@ class PostList(NomadBlogMixin, ListView):
 
 class PostDetail(NomadBlogMixin, DetailView):
     model = POST_MODEL
+    template_name = 'nomadblog/post_detail.html'
 
     def get_object(self, queryset=None):
         queryset = self.get_queryset().filter(bloguser__blog=self.blog)
