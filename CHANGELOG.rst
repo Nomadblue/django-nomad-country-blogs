@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v1.4.0
+======
+
+* Add new settings to customize pagination of post and cat lists.
+
 v1.3.0
 ======
 
