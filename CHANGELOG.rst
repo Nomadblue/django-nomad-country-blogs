@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v1.4.1
+======
+
+* Fix template name in views
+
 v1.4.0
 ======
 
