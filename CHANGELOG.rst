@@ -2,6 +2,11 @@
 CHANGELOG
 =========
 
+v1.3.0
+======
+
+* Introducing DEFAULT_BLOG_SLUG to enable single blog installations.
+
 v1.2.1
 ======
 
