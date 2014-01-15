@@ -103,6 +103,8 @@ class Post(models.Model):
     content = models.TextField(_('content'))
     featured_countries = models.ManyToManyField(Country, verbose_name=_('featured countries'), blank=True)
 
+    pub_date.editable = True
+
     def __unicode__(self):
         return u"%s - %s" % (self.bloguser, self.title)
 

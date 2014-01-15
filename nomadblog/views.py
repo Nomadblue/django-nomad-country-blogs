@@ -13,7 +13,10 @@ POST_MODEL = get_post_model()
 class NomadBlogMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
-        self.blog = get_object_or_404(Blog, countries__code__iexact=self.kwargs.get('country_code'), slug=self.kwargs.get('blog_slug'))
+        if self.kwargs.get('country_code'):
+            self.blog = get_object_or_404(Blog, countries__code__iexact=self.kwargs.get('country_code'), slug=self.kwargs.get('blog_slug'))
+        else:
+            self.blog = Blog.objects.get(slug=settings.DEFAULT_BLOG_SLUG)
         return super(NomadBlogMixin, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, *args, **kwargs):
@@ -28,7 +31,7 @@ class PostList(NomadBlogMixin, ListView):
 
     def get_queryset(self):
         qs = super(PostList, self).get_queryset()
-        return qs.filter(bloguser__blog=self.blog)
+        return qs.filter(bloguser__blog=self.blog).order_by('-pub_date')
 
 
 class PostDetail(NomadBlogMixin, DetailView):
