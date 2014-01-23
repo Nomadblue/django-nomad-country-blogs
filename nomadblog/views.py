@@ -16,7 +16,8 @@ class NomadBlogMixin(object):
         if self.kwargs.get('country_code'):
             self.blog = get_object_or_404(Blog, countries__code__iexact=self.kwargs.get('country_code'), slug=self.kwargs.get('blog_slug'))
         else:
-            self.blog = Blog.objects.get(slug=settings.DEFAULT_BLOG_SLUG)
+            slug = getattr(settings, 'DEFAULT_BLOG_SLUG', None)
+            self.blog = Blog.objects.get(slug=slug) if slug is not None else None
         return super(NomadBlogMixin, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, *args, **kwargs):
