@@ -2,6 +2,13 @@
 CHANGELOG
 =========
 
+v1.4.2
+======
+
+* DEFAULT_BLOG_SLUG setting may not be needed in some views for multiple
+  blog installations (e.g. listing categories which are non blog-dependant)
+  so we made the setting optional.
+
 v1.4.1
 ======
 
